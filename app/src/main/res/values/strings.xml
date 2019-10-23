@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BookStore</string>
+    <string name="form_title">ADD A BOOK</string>
+</resources>
