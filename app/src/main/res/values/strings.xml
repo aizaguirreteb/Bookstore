@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">BookStore</string>
     <string name="form_title">ADD A BOOK</string>
+    <string name="title_hint">Title</string>
+    <string name="hint_cover">URL Cover</string>
+    <string name="isbn_hint">ISBN</string>
+    <string name="author_hint">Authors</string>
+
+
 </resources>
