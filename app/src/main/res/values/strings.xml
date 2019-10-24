@@ -11,6 +11,18 @@
     <string name="description_hint">Description</string>
     <string name="btn_add">INSERT</string>
     <string name="enc_hint">Binding</string>
+    <string name="txt_editorial">Editorial</string>
+
+    <string-array name="editorial_array">
+        <item>Anaya</item>
+        <item>Mac Graw Hill</item>
+        <item>Oreilly</item>
+        <item>Apress</item>
+        <item>Manning</item>
+        <item>Pretince Hall</item>
+        <item>Rama</item>
+    </string-array>
+
 
 
 
