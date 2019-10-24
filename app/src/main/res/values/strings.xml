@@ -10,6 +10,7 @@
     <string name="price_hint">Price</string>
     <string name="description_hint">Description</string>
     <string name="btn_add">INSERT</string>
+    <string name="enc_hint">Binding</string>
 
 
 

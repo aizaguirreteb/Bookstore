@@ -90,8 +90,9 @@
         android:hint="@string/date_hint"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.781"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEnc" />
 
     <EditText
         android:id="@+id/editTextPages"
@@ -139,6 +140,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
+
+    <EditText
+        android:id="@+id/editTextEnc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/enc_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
