@@ -5,6 +5,12 @@
     <string name="hint_cover">URL Cover</string>
     <string name="isbn_hint">ISBN</string>
     <string name="author_hint">Authors</string>
+    <string name="date_hint">Date</string>
+    <string name="pages_hint">Number of pages</string>
+    <string name="price_hint">Price</string>
+    <string name="description_hint">Description</string>
+    <string name="btn_add">INSERT</string>
+
 
 
 </resources>
