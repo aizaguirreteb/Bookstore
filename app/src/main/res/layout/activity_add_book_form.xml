@@ -143,29 +143,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
 
-        <Spinner
+        <AutoCompleteTextView
             android:id="@+id/spinnerEditorial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:entries="@array/editorial_array"
+            android:hint="Editorial"
+            android:completionHint="Select an editorial"
+            android:completionThreshold="2"
             app:layout_constraintEnd_toStartOf="@+id/spinnerBinding"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/spinnerBinding" />
-
-        <TextView
-            android:id="@+id/txtEditorial"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/txt_editorial"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/textViewBinding"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
 
         <TextView
             android:id="@+id/textViewNumBooks"
@@ -182,13 +173,11 @@
             android:id="@+id/textViewBinding"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Binding"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtEditorial"
+            app:layout_constraintStart_toStartOf="@+id/spinnerBinding"
             app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
 
         <Spinner

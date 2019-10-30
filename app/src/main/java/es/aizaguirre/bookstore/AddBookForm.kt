@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Spinner
 import es.aizaguirre.bookstore.model.Book
@@ -32,6 +33,14 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
         //Array of values for binding
         val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
+
+        //Array of editorial values
+        val editorialArray = arrayOf("Anaya", "Mac Graw Hill", "Oreilly", "Apress", "Manning", "Pretince Hall", "Rama")
+
+        //ArrayAdapter for editorial
+        val editorialAdapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, editorialArray)
+        val editorialAutocomplete = findViewById<AutoCompleteTextView>(R.id.spinnerEditorial)
+        editorialAutocomplete.setAdapter(editorialAdapter)
 
         //ArrayAdapter for Binding spinner
         val bindingAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, bindingArray)
@@ -66,7 +75,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val cover = editTextPortada.text.toString()
         val isbn = editTextISBN.text.toString()
         val authors = editTextAuthors.text.toString()
-        val editorial = txtEditorial.text.toString()
+        val editorial = spinnerEditorial.text.toString()
         val binding = spinnerBinding.selectedItem.toString()
         val sDate = editTextDate.text.toString()
         val sNumberOfPages = editTextPages.text.toString()
