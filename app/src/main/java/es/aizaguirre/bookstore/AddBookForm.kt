@@ -3,7 +3,9 @@ package es.aizaguirre.bookstore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 import kotlinx.android.synthetic.main.activity_add_book_form.*
@@ -19,8 +21,8 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_book_form)
 
-        /*//To save list of books
-        savedInstanceState.let {
+        //To save list of books
+      /*  savedInstanceState.let {
             lista = savedInstanceState?.getParcelableArrayList<Book>(BUNDLE_LISTA)!!
         }*/
 
@@ -28,14 +30,21 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val buttonInsert = findViewById<Button>(R.id.btnAdd) as Button
         buttonInsert.setOnClickListener(this)
 
-    }
-/*
+        //Array of values for binding
+        val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
 
-    override fun onSaveInstanceState(outState: Bundle) {
+        //ArrayAdapter for Binding spinner
+        val bindingAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, bindingArray)
+        val bindingSpinner = findViewById<Spinner>(R.id.spinnerBinding)
+        bindingSpinner.adapter = bindingAdapter
+    }
+
+
+ /*   override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(BUNDLE_LISTA, lista)
-    }
-*/
+    }*/
+
 
 
 
@@ -58,7 +67,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val isbn = editTextISBN.text.toString()
         val authors = editTextAuthors.text.toString()
         val editorial = txtEditorial.text.toString()
-        val binding = editTextEnc.text.toString()
+        val binding = spinnerBinding.selectedItem.toString()
         val sDate = editTextDate.text.toString()
         val sNumberOfPages = editTextPages.text.toString()
         val sPrice = editTextPrice.text.toString()
@@ -80,8 +89,6 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         editTextPortada.setText("")
         editTextISBN.setText("")
         editTextAuthors.setText("")
-        txtEditorial.setText("")
-        editTextEnc.setText("")
         editTextDate.setText("")
         editTextPages.setText("")
         editTextPrice.setText("")

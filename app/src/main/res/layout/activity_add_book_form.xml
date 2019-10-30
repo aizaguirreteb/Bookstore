@@ -89,9 +89,8 @@
             android:hint="@string/date_hint"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.781"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextEnc" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerEditorial" />
 
         <EditText
             android:id="@+id/editTextPages"
@@ -144,38 +143,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
 
-        <EditText
-            android:id="@+id/editTextEnc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="@string/enc_hint"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.968"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerEditorial" />
-
         <Spinner
             android:id="@+id/spinnerEditorial"
             android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:entries="@array/editorial_array"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerBinding"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditorial" />
+            app:layout_constraintTop_toTopOf="@+id/spinnerBinding" />
 
         <TextView
             android:id="@+id/txtEditorial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/txt_editorial"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewBinding"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
 
@@ -183,13 +171,35 @@
             android:id="@+id/textViewNumBooks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="0 books"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnAdd"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="0 books" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewBinding"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Binding"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtEditorial"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAuthors" />
+
+        <Spinner
+            android:id="@+id/spinnerBinding"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/spinnerEditorial"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBinding" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
