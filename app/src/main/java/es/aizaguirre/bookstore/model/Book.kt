@@ -12,7 +12,7 @@ data class Book (
     val authors : String,
     val editorial : String,
     val binding : String,
-    val date : LocalDate,
+    val date : String,
     val numberOfPages : Int,
     val price : Double,
     val description : String
