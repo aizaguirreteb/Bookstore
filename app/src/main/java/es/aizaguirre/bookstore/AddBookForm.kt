@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
 
 class AddBookForm : AppCompatActivity(), View.OnClickListener{
@@ -26,6 +27,10 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         //Setting onclick listener to button 'Insert'
         val buttonInsert = findViewById<Button>(R.id.btnAdd) as Button
         buttonInsert.setOnClickListener(this)
+
+        //Setting listener to button clearFindViewByIdCache
+        val buttonClear = findViewById<Button>(R.id.buttonClear)
+        buttonClear.setOnClickListener(this)
 
         //Array of values for binding
         val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
@@ -84,13 +89,16 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
                     Catalog.addBook(book)
                     lista = Catalog.books
                     textViewNumBooks.text = "${lista.size} books"
-                    clearAll()
                     mensaje = "ADDED BOOK"
                 }
             }
 
             Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
 
+        }
+
+        if(buttonClicked?.id == R.id.buttonClear){
+            clearAll()
         }
     }
 
