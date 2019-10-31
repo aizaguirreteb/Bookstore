@@ -3,10 +3,7 @@ package es.aizaguirre.bookstore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 import kotlinx.android.synthetic.main.activity_add_book_form.*
@@ -61,11 +58,15 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val buttonClicked = view
 
         if(buttonClicked?.id == R.id.btnAdd){
-           val book = retrieveBook()
-            Catalog.addBook(book)
-            lista = Catalog.books
-            textViewNumBooks.text = "${lista.size} books"
-            clearAll()
+            if(checkFieldsNotEmpty()) {
+                val book = retrieveBook()
+                Catalog.addBook(book)
+                lista = Catalog.books
+                textViewNumBooks.text = "${lista.size} books"
+                clearAll()
+            } else {
+                Toast.makeText(this, "PLEASE FILL ALL FIELDS", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -102,5 +103,23 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         editTextPages.setText("")
         editTextPrice.setText("")
         editTextDescription.setText("")
+    }
+
+    private fun checkFieldsNotEmpty() : Boolean{
+        var notEmpty =true
+        when{
+            editTextTitle.text.isEmpty() -> notEmpty = false
+            editTextAuthors.text.isEmpty() -> notEmpty = false
+            editTextAuthors.text.isEmpty() -> notEmpty = false
+            editTextISBN.text.isEmpty() -> notEmpty = false
+            editTextDate.text.isEmpty() -> notEmpty = false
+            editTextPages.text.isEmpty() -> notEmpty = false
+            editTextPrice.text.isEmpty() -> notEmpty = false
+            editTextDescription.text.isEmpty() -> notEmpty = false
+            spinnerEditorial.text.isEmpty() -> notEmpty = false
+
+
+        }
+        return notEmpty
     }
 }
