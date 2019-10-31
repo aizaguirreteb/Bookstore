@@ -58,15 +58,24 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val buttonClicked = view
 
         if(buttonClicked?.id == R.id.btnAdd){
-            if(checkFieldsNotEmpty()) {
-                val book = retrieveBook()
-                Catalog.addBook(book)
-                lista = Catalog.books
-                textViewNumBooks.text = "${lista.size} books"
-                clearAll()
-            } else {
-                Toast.makeText(this, "PLEASE FILL ALL FIELDS", Toast.LENGTH_LONG).show()
+            var mensaje : String = ""
+            when{
+                !checkFieldsNotEmpty() -> mensaje = "PLEASE FILL ALL FIELDS"
+                !checkISBNLength() -> mensaje = "ISBN NUMBER NOT VALID"
+                !checkPrice() -> mensaje = "PRICE NOT VALID"
+                !checkPages() -> mensaje = "NUMBER OF PAGES NOT VALID"
+                checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
+                    val book = retrieveBook()
+                    Catalog.addBook(book)
+                    lista = Catalog.books
+                    textViewNumBooks.text = "${lista.size} books"
+                    clearAll()
+                    mensaje = "ADDED BOOK"
+                }
             }
+
+            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+
         }
     }
 
@@ -117,9 +126,17 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
             editTextPrice.text.isEmpty() -> notEmpty = false
             editTextDescription.text.isEmpty() -> notEmpty = false
             spinnerEditorial.text.isEmpty() -> notEmpty = false
-
-
         }
         return notEmpty
     }
+
+    private fun checkISBNLength() = editTextISBN.text.length == 13
+
+    private fun checkPrice() = editTextPrice.text.toString().toDouble() <= 0
+
+    private fun checkPages() = editTextPages.text.toString().toInt() <= 0
+
+
+
+
 }
