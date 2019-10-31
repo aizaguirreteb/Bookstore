@@ -90,33 +90,34 @@
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerEditorial" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerBinding" />
 
-        <EditText
-            android:id="@+id/editTextPages"
+        <SeekBar
+            android:id="@+id/seekBarPages"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/pages_hint"
             android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/editTextPrice"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:max="3000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.812"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewNumPages" />
 
         <EditText
             android:id="@+id/editTextPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/price_hint"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editTextPages"
-            app:layout_constraintTop_toTopOf="@+id/editTextPages" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -133,7 +134,6 @@
             android:id="@+id/editTextDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/description_hint"
@@ -141,22 +141,22 @@
             app:layout_constraintBottom_toTopOf="@+id/btnAdd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/seekBarPages" />
 
         <AutoCompleteTextView
             android:id="@+id/spinnerEditorial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:entries="@array/editorial_array"
-            android:hint="Editorial"
             android:completionHint="Select an editorial"
             android:completionThreshold="2"
+            android:entries="@array/editorial_array"
+            android:hint="Editorial"
             app:layout_constraintEnd_toStartOf="@+id/spinnerBinding"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/spinnerBinding" />
+            app:layout_constraintTop_toTopOf="@+id/textViewBinding" />
 
         <TextView
             android:id="@+id/textViewNumBooks"
@@ -189,6 +189,24 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spinnerEditorial"
             app:layout_constraintTop_toBottomOf="@+id/textViewBinding" />
+
+        <TextView
+            android:id="@+id/textViewNumPages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Number of Pages : "
+            app:layout_constraintStart_toStartOf="@+id/seekBarPages"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
+
+        <TextView
+            android:id="@+id/textViewShowNumPages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewNumPages"
+            app:layout_constraintTop_toTopOf="@+id/textViewNumPages" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

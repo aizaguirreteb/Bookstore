@@ -7,7 +7,6 @@ import android.widget.*
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 import kotlinx.android.synthetic.main.activity_add_book_form.*
-import java.time.LocalDate
 
 class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
@@ -43,6 +42,22 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val bindingAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, bindingArray)
         val bindingSpinner = findViewById<Spinner>(R.id.spinnerBinding)
         bindingSpinner.adapter = bindingAdapter
+
+
+        //OnProgressChangeListener for seekBar
+        seekBarPages.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                textViewShowNumPages.setText(p1.toString())
+            }
+
+        })
     }
 
 
@@ -79,6 +94,9 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         }
     }
 
+
+
+
     private fun retrieveBook() : Book {
 
         val title = editTextTitle.text.toString()
@@ -88,7 +106,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val editorial = spinnerEditorial.text.toString()
         val binding = spinnerBinding.selectedItem.toString()
         val sDate = editTextDate.text.toString()
-        val sNumberOfPages = editTextPages.text.toString()
+        val sNumberOfPages = seekBarPages.progress.toString()
         val sPrice = editTextPrice.text.toString()
         val description = editTextDescription.text.toString()
 
@@ -109,7 +127,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         editTextISBN.setText("")
         editTextAuthors.setText("")
         editTextDate.setText("")
-        editTextPages.setText("")
+        seekBarPages.progress = 0
         editTextPrice.setText("")
         editTextDescription.setText("")
     }
@@ -122,7 +140,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
             editTextAuthors.text.isEmpty() -> notEmpty = false
             editTextISBN.text.isEmpty() -> notEmpty = false
             editTextDate.text.isEmpty() -> notEmpty = false
-            editTextPages.text.isEmpty() -> notEmpty = false
+            seekBarPages.progress == 0 -> notEmpty = false
             editTextPrice.text.isEmpty() -> notEmpty = false
             editTextDescription.text.isEmpty() -> notEmpty = false
             spinnerEditorial.text.isEmpty() -> notEmpty = false
@@ -134,7 +152,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
     private fun checkPrice() = editTextPrice.text.toString().toDouble() <= 0
 
-    private fun checkPages() = editTextPages.text.toString().toInt() <= 0
+    private fun checkPages() = seekBarPages.progress.toString().toInt() <= 0
 
 
 
