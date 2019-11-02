@@ -118,13 +118,15 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val sNumberOfPages = seekBarPages.progress.toString()
         val sPrice = editTextPrice.text.toString()
         val description = editTextDescription.text.toString()
+        val radioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+        val type = radioButton.text.toString()
 
         val iNumberOfPages = sNumberOfPages.toInt()
         val dPrice = sPrice.toDouble()
 
         val bookInserted = Book(
             title, cover, isbn, authors, editorial, binding,
-            sDate, iNumberOfPages, dPrice, description
+            sDate, iNumberOfPages, dPrice, description, type
         )
 
         return bookInserted

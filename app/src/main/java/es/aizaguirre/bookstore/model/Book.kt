@@ -15,7 +15,8 @@ data class Book (
     val date : String,
     val numberOfPages : Int,
     val price : Double,
-    val description : String
+    val description : String,
+    val type : String
 ): Parcelable{
     override fun toString(): String {
         return title
