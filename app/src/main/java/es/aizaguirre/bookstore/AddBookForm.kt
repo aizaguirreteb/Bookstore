@@ -84,6 +84,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
                 !checkISBNLength() -> mensaje = "ISBN NUMBER NOT VALID"
                 !checkPrice() -> mensaje = "PRICE NOT VALID"
                 !checkPages() -> mensaje = "NUMBER OF PAGES NOT VALID"
+                !checkDate() -> mensaje = "DATE NOT VALID"
                 checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
                     val book = retrieveBook()
                     Catalog.addBook(book)
@@ -158,9 +159,16 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
     private fun checkISBNLength() = editTextISBN.text.length == 13
 
-    private fun checkPrice() = editTextPrice.text.toString().toDouble() <= 0
+    private fun checkPrice() = editTextPrice.text.toString().toDouble() > 0
 
-    private fun checkPages() = seekBarPages.progress.toString().toInt() <= 0
+    private fun checkPages() = seekBarPages.progress.toString().toInt() > 0
+
+    private fun checkDate() : Boolean{
+        var regexDate = "[0-9]{1,2}(-|/)[0-9]{1,2}(-|/)[0-9]{2,4}".toRegex()
+
+        return editTextDate.text.matches(regexDate)
+
+    }
 
 
 
