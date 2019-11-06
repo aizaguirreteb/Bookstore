@@ -5,7 +5,7 @@ Repository for a singleton object Catalog
  */
 object Catalog{
 
-    val books = ArrayList<Book>()
+    val books = mutableListOf<Book>()
 
     fun addBook (newBook : Book): Boolean{
         return books.add(newBook)

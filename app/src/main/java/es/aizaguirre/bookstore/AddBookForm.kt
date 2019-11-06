@@ -8,21 +8,20 @@ import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
+import java.util.ArrayList
 
 class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
 
-    var lista = ArrayList<Book>()
-    val BUNDLE_LISTA = "LISTA"
+    var bookCatalog : Catalog = Catalog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_book_form)
 
-        //To save list of books
-      /*  savedInstanceState.let {
-            lista = savedInstanceState?.getParcelableArrayList<Book>(BUNDLE_LISTA)!!
-        }*/
+        val textNumBooks = findViewById<TextView>(R.id.textViewNumBooks)
+        textNumBooks.setText("${bookCatalog.books.size} books")
 
         //Setting onclick listener to button 'Insert'
         val buttonInsert = findViewById<Button>(R.id.btnAdd) as Button
@@ -66,9 +65,10 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
     }
 
 
- /*   override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+    /*override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelableArrayList(BUNDLE_LISTA, lista)
+        super.onSaveInstanceState(outState)
+
     }*/
 
 
@@ -87,9 +87,8 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
                 !checkDate() -> mensaje = "DATE NOT VALID"
                 checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
                     val book = retrieveBook()
-                    Catalog.addBook(book)
-                    lista = Catalog.books
-                    textViewNumBooks.text = "${lista.size} books"
+                    bookCatalog.addBook(book)
+                    textViewNumBooks.text = "${bookCatalog.books.size} books"
                     mensaje = "ADDED BOOK"
                 }
             }
@@ -171,6 +170,11 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         return editTextDate.text.matches(regexDate)
 
     }
+
+    /*companion object{
+        private const val BUNDLE_LISTA = "BUNDLE_LISTA"
+
+    }*/
 
 
 
