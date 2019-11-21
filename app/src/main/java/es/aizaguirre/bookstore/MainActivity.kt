@@ -1,5 +1,6 @@
 package es.aizaguirre.bookstore
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,9 +17,19 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         var btnAddBookMain = findViewById<Button>(R.id.buttonAddBook)
 
         btnCatalog.setOnClickListener( this)
+        btnAddBookMain.setOnClickListener(this)
     }
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
+
+        if(v.id == R.id.buttonCatalog){
+            val intent = Intent(baseContext, BookListActivity::class.java)
+            startActivity(intent)
+        }
+        if(v.id == R.id.buttonAddBook){
+            val intent = Intent(baseContext, AddBookForm::class.java)
+            startActivity(intent)
+        }
 
     }
 }
