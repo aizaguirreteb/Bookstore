@@ -12,6 +12,10 @@
     <string name="btn_add">INSERT</string>
     <string name="enc_hint">Binding</string>
     <string name="txt_editorial">Editorial</string>
+    <string name="book_list_title">BOOK CATALOG</string>
+    <string name="bookstore_title">BOOKSTORE</string>
+    <string name="btnCatalog">CATALOG</string>
+    <string name="btnAddBook">ADD BOOK</string>
 
     <string-array name="editorial_array">
         <item>Anaya</item>
@@ -22,8 +26,6 @@
         <item>Pretince Hall</item>
         <item>Rama</item>
     </string-array>
-
-
 
 
 </resources>
