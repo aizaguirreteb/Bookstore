@@ -1,5 +1,6 @@
 package es.aizaguirre.bookstore
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,8 +47,23 @@ class BookListActivity : AppCompatActivity() {
         bookListView.adapter = adapter
         Log.i("info", "4")
 
+        bookListView.setOnItemClickListener { parent, view, position, id ->
+            Log.i("PARENT", parent.toString())
+            Log.i("VIEW", view.toString())
+            Log.i("POSITION", position.toString())
+            Log.i("id", id.toString())
+            var intent = Intent(baseContext, BookDetail::class.java)
+            intent.putExtra(ITEM_PULSADO, position)
+            startActivity(intent)
+        }
 
-        var actionBar = supportActionBar
 
+
+
+
+
+    }
+    companion object{
+        var ITEM_PULSADO = "ITEM_PULSADO"
     }
 }

@@ -16,6 +16,7 @@
     <string name="bookstore_title">BOOKSTORE</string>
     <string name="btnCatalog">CATALOG</string>
     <string name="btnAddBook">ADD BOOK</string>
+    <string name="book_detail">BOOK</string>
 
     <string-array name="editorial_array">
         <item>Anaya</item>
