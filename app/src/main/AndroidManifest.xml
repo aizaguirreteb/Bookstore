@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".BookListActivity"></activity>
         <activity android:name=".AddBookForm" />
+        <activity android:name=".BookRecyclerActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

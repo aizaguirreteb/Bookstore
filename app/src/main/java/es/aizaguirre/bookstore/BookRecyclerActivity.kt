@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import es.aizaguirre.bookstore.adapters.BookAdapter
+import es.aizaguirre.bookstore.adapters.BookRecyclerAdapter
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 
-class BookListActivity : AppCompatActivity() {
+class BookRecyclerActivity : AppCompatActivity() {
 
-   /* lateinit var bookListView : ListView
-    lateinit var adapter : BookAdapter
+    private lateinit var bookListRecycler : RecyclerView
+    private lateinit var adapter : BookRecyclerAdapter
     val catalog : Catalog = Catalog
 
 
@@ -37,24 +40,22 @@ class BookListActivity : AppCompatActivity() {
         catalog.addBook(book2)
         catalog.addBook(book3)
 
+        var manejadorListener = object:BookRecyclerAdapter.OnItemClickListener{
+            override fun onClicked(book: Book) {
+                var intent = Intent(baseContext, BookDetail::class.java)
+                intent.putExtra(ITEM_PULSADO, book)
+                startActivity(intent)
+            }
 
-        bookListView = findViewById(R.id.bookListView)
-        Log.i("info", "2")
+        }
 
-        adapter = BookAdapter(this, catalog.books)
-        Log.i("info", "3")
+        var adapterRecycler = BookRecyclerAdapter(catalog.books, manejadorListener )
 
-        bookListView.adapter = adapter
-        Log.i("info", "4")
 
-        bookListView.setOnItemClickListener { parent, view, position, id ->
-            Log.i("PARENT", parent.toString())
-            Log.i("VIEW", view.toString())
-            Log.i("POSITION", position.toString())
-            Log.i("id", id.toString())
-            var intent = Intent(baseContext, BookDetail::class.java)
-            intent.putExtra(ITEM_PULSADO, position)
-            startActivity(intent)
+
+        bookListRecycler = findViewById<RecyclerView>(R.id.bookRecyclerView).apply{
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = adapterRecycler
         }
 
 
@@ -65,5 +66,5 @@ class BookListActivity : AppCompatActivity() {
     }
     companion object{
         var ITEM_PULSADO = "ITEM_PULSADO"
-    }*/
+    }
 }

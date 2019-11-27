@@ -8,30 +8,19 @@
     android:background="#E9A5A5"
     android:padding="16dp">
 
+
+
     <TextView
-        android:id="@+id/textFormTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/txtBookTitle"
         android:fontFamily="@font/roboto_black"
         android:shadowColor="@color/white"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="3"
-        android:text="@string/book_detail"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
-        android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtBookTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@color/black"
@@ -60,6 +49,7 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@+id/txtBookTitle" />
 
     <TextView

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
     override fun onClick(v: View) {
 
         if(v.id == R.id.buttonCatalog){
-            val intent = Intent(baseContext, BookListActivity::class.java)
+            val intent = Intent(baseContext, BookRecyclerActivity::class.java)
             startActivity(intent)
         }
         if(v.id == R.id.buttonAddBook){
