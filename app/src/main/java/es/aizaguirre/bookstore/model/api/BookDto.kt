@@ -1,12 +1,6 @@
-package es.aizaguirre.bookstore.model
+package es.aizaguirre.bookstore.model.api
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-import java.time.LocalDate
-
-@Parcelize
-data class Book (
-    val id : Int,
+data class BookDto (
     val title : String,
     val cover : String,
     val isbn : String,
@@ -18,8 +12,4 @@ data class Book (
     val price : Double,
     val description : String,
     val type : String
-): Parcelable{
-    override fun toString(): String {
-        return title
-    }
-}
+)
