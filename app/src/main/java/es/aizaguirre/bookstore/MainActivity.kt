@@ -3,33 +3,55 @@ package es.aizaguirre.bookstore
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity() , View.OnClickListener{
+class MainActivity : AppCompatActivity() {
+
+    private val bookListFragment: BookRecyclerActivity = BookRecyclerActivity()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var btnCatalog = findViewById<Button>(R.id.buttonCatalog)
-        var btnAddBookMain = findViewById<Button>(R.id.buttonAddBook)
 
-        btnCatalog.setOnClickListener( this)
-        btnAddBookMain.setOnClickListener(this)
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container, bookListFragment)
+                .commit()
+        }
+
+
     }
 
-    override fun onClick(v: View) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
-        if(v.id == R.id.buttonCatalog){
-            val intent = Intent(baseContext, BookRecyclerActivity::class.java)
-            startActivity(intent)
-        }
-        if(v.id == R.id.buttonAddBook){
-            val intent = Intent(baseContext, AddBookForm::class.java)
-            startActivity(intent)
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        when (item.itemId) {
+            R.id.menu_book_list ->
+                changeFragment(bookListFragment)
+            R.id.menu_new_book ->
+                changeFragment(AddBookForm())
+        }
+        return true
+
+    }
+
+
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

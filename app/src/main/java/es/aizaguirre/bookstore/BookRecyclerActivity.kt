@@ -31,7 +31,7 @@ class BookRecyclerActivity : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val book1 = Book("Libro 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTXv0U-c4Q7ZZTlaovG-HMbZEm0xgx_amyuJL1PvkTJaRBRAb18",
+        /*val book1 = Book("Libro 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTXv0U-c4Q7ZZTlaovG-HMbZEm0xgx_amyuJL1PvkTJaRBRAb18",
             "123456789", "Yo misma", "Anaya", "Tapa dura",
             "10-04-91", 250, 20.55, "Es muy bonito", "Digital")
         val book2 = Book("Libro 2", "https://s3.amazonaws.com/librero/books/nueva-portada/portada-libro-9789585464674-activa-tu-ritmo-biologico-panda-satchin-grijalbo-bogota-librero.jpg",
@@ -44,13 +44,21 @@ class BookRecyclerActivity : Fragment() {
 
         catalog.addBook(book1)
         catalog.addBook(book2)
-        catalog.addBook(book3)
+        catalog.addBook(book3)*/
 
         var manejadorListener = object:BookRecyclerAdapter.OnItemClickListener{
             override fun onClicked(book: Book) {
-                var intent = Intent(context, BookDetail::class.java)
-                intent.putExtra(ITEM_PULSADO, book)
-                startActivity(intent)
+
+                val fragment = BookDetail()
+                val args = Bundle()
+                args.putParcelable("ITEM_PULSADO", book)
+                fragment.setArguments(args);
+
+                fragmentManager!!
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
 
         }
