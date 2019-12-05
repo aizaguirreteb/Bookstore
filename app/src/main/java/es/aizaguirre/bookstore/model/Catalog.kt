@@ -7,14 +7,14 @@ object Catalog{
 
     val books = mutableListOf<Book>()
     init {
-        mock()
+        //mock()
     }
 
     fun addBook (newBook : Book): Boolean{
         return books.add(newBook)
     }
 
-    fun mock(){
+    /*fun mock(){
         val book1 = Book("Libro 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTXv0U-c4Q7ZZTlaovG-HMbZEm0xgx_amyuJL1PvkTJaRBRAb18",
             "123456789", "Yo misma", "Anaya", "Tapa dura",
             "10-04-91", 250, 20.55, "Es muy bonito", "Digital")
@@ -29,6 +29,6 @@ object Catalog{
         addBook(book1)
         addBook(book2)
         addBook(book3)
-    }
+    }*/
 
 }
