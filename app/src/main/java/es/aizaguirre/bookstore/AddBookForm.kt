@@ -2,33 +2,40 @@ package es.aizaguirre.bookstore
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
 import java.util.ArrayList
 
-class AddBookForm : AppCompatActivity(), View.OnClickListener{
+class AddBookForm : Fragment(), View.OnClickListener{
 
 
     var bookCatalog : Catalog = Catalog
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_add_book_form, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_book_form)
-
-        val textNumBooks = findViewById<TextView>(R.id.textViewNumBooks)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val textNumBooks = view.findViewById<TextView>(R.id.textViewNumBooks)
         textNumBooks.setText("${bookCatalog.books.size} books")
 
         //Setting onclick listener to button 'Insert'
-        val buttonInsert = findViewById<Button>(R.id.btnAdd) as Button
+        val buttonInsert = view.findViewById<Button>(R.id.btnAdd) as Button
         buttonInsert.setOnClickListener(this)
 
         //Setting listener to button clearFindViewByIdCache
-        val buttonClear = findViewById<Button>(R.id.buttonClear)
+        val buttonClear = view.findViewById<Button>(R.id.buttonClear)
         buttonClear.setOnClickListener(this)
 
         //Array of values for binding
@@ -38,13 +45,13 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val editorialArray = arrayOf("Anaya", "Mac Graw Hill", "Oreilly", "Apress", "Manning", "Pretince Hall", "Rama")
 
         //ArrayAdapter for editorial
-        val editorialAdapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, editorialArray)
-        val editorialAutocomplete = findViewById<AutoCompleteTextView>(R.id.spinnerEditorial)
+        val editorialAdapter = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, editorialArray)
+        val editorialAutocomplete = view.findViewById<AutoCompleteTextView>(R.id.spinnerEditorial)
         editorialAutocomplete.setAdapter(editorialAdapter)
 
         //ArrayAdapter for Binding spinner
-        val bindingAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, bindingArray)
-        val bindingSpinner = findViewById<Spinner>(R.id.spinnerBinding)
+        val bindingAdapter = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_dropdown_item, bindingArray)
+        val bindingSpinner = view.findViewById<Spinner>(R.id.spinnerBinding)
         bindingSpinner.adapter = bindingAdapter
 
 
@@ -63,6 +70,9 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
         })
     }
+
+
+
 
 
     /*override fun onSaveInstanceState(outState: Bundle) {
@@ -86,14 +96,14 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
                 !checkPages() -> mensaje = "NUMBER OF PAGES NOT VALID"
                 !checkDate() -> mensaje = "DATE NOT VALID"
                 checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
-                    val book = retrieveBook()
+                    val book = retrieveBook(view)
                     bookCatalog.addBook(book)
                     textViewNumBooks.text = "${bookCatalog.books.size} books"
                     mensaje = "ADDED BOOK"
                 }
             }
 
-            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show()
 
         }
 
@@ -105,7 +115,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
 
 
 
-    private fun retrieveBook() : Book {
+    private fun retrieveBook(view: View) : Book {
 
         val title = editTextTitle.text.toString()
         val cover = editTextPortada.text.toString()
@@ -117,7 +127,7 @@ class AddBookForm : AppCompatActivity(), View.OnClickListener{
         val sNumberOfPages = seekBarPages.progress.toString()
         val sPrice = editTextPrice.text.toString()
         val description = editTextDescription.text.toString()
-        val radioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+        val radioButton = view.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
         val type = radioButton.text.toString()
 
         val iNumberOfPages = sNumberOfPages.toInt()
