@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.aizaguirre.bookstore.adapters.BookAdapter
@@ -12,19 +16,21 @@ import es.aizaguirre.bookstore.adapters.BookRecyclerAdapter
 import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.Catalog
 
-class BookRecyclerActivity : AppCompatActivity() {
+class BookRecyclerActivity : Fragment() {
 
     private lateinit var bookListRecycler : RecyclerView
     private lateinit var adapter : BookRecyclerAdapter
     val catalog : Catalog = Catalog
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_book_list, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book_list)
-
-        Log.i("info", "1")
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val book1 = Book("Libro 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTXv0U-c4Q7ZZTlaovG-HMbZEm0xgx_amyuJL1PvkTJaRBRAb18",
             "123456789", "Yo misma", "Anaya", "Tapa dura",
             "10-04-91", 250, 20.55, "Es muy bonito", "Digital")
@@ -42,7 +48,7 @@ class BookRecyclerActivity : AppCompatActivity() {
 
         var manejadorListener = object:BookRecyclerAdapter.OnItemClickListener{
             override fun onClicked(book: Book) {
-                var intent = Intent(baseContext, BookDetail::class.java)
+                var intent = Intent(context, BookDetail::class.java)
                 intent.putExtra(ITEM_PULSADO, book)
                 startActivity(intent)
             }
@@ -53,7 +59,7 @@ class BookRecyclerActivity : AppCompatActivity() {
 
 
 
-        bookListRecycler = findViewById<RecyclerView>(R.id.bookRecyclerView).apply{
+        bookListRecycler = view.findViewById<RecyclerView>(R.id.bookRecyclerView).apply{
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = adapterRecycler
         }
@@ -62,8 +68,10 @@ class BookRecyclerActivity : AppCompatActivity() {
 
 
 
-
     }
+
+
+
     companion object{
         var ITEM_PULSADO = "ITEM_PULSADO"
     }
