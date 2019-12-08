@@ -77,7 +77,15 @@ object BookRepository {
         })
     }
 
+    fun updateBook(book: Book, callback: BookUpdateRepositoryCallback){
+        
+    }
 
+
+    interface BookUpdateRepositoryCallback{
+        fun onBookResponse(book: Book)
+        fun onBookError(msg: String?)
+    }
 
 
     interface BookListRepositoryCallback{
