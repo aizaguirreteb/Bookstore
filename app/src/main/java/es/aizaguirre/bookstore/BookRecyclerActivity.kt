@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_book_list.*
 class BookRecyclerActivity : Fragment() {
 
     private lateinit var bookListRecycler : RecyclerView
-    private lateinit var adapter : BookRecyclerAdapter
+    private lateinit var adapterRecycler : BookRecyclerAdapter
 
     private val booksViewModel: BookViewModel by lazy {
         ViewModelProviders.of(this).get(BookViewModel::class.java)
@@ -81,7 +81,7 @@ class BookRecyclerActivity : Fragment() {
 
         }
 
-        var adapterRecycler = BookRecyclerAdapter(emptyList(),longClickListener, manejadorListener )
+        adapterRecycler = BookRecyclerAdapter(emptyList(),longClickListener, manejadorListener )
 
 
 
@@ -117,8 +117,8 @@ class BookRecyclerActivity : Fragment() {
             resource ->
             when(resource.status){
                 Resource.Status.SUCCESS ->{
-                    adapter.books = resource.data
-                    adapter.notifyDataSetChanged()
+                    adapterRecycler.books = resource.data
+                    adapterRecycler.notifyDataSetChanged()
                 }
                 Resource.Status.ERROR -> {
                     if(resource.message != null ){

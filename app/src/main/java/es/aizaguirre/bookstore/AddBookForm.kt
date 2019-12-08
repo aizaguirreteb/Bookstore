@@ -7,16 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import es.aizaguirre.bookstore.model.Book
+import es.aizaguirre.bookstore.model.BookViewModel
 import es.aizaguirre.bookstore.model.Catalog
+import es.aizaguirre.bookstore.model.Resource
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
-import java.util.ArrayList
+import java.util.*
 
 class AddBookForm : Fragment(), View.OnClickListener{
 
 
-    var bookCatalog : Catalog = Catalog
+    private val bookViewModel: BookViewModel by lazy {
+        ViewModelProviders.of(this).get(BookViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,8 +33,8 @@ class AddBookForm : Fragment(), View.OnClickListener{
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val textNumBooks = view.findViewById<TextView>(R.id.textViewNumBooks)
-        textNumBooks.setText("${bookCatalog.books.size} books")
+        /*val textNumBooks = view.findViewById<TextView>(R.id.textViewNumBooks)
+        textNumBooks.setText("${} books")*/
 
         //Setting onclick listener to button 'Insert'
         val buttonInsert = view.findViewById<Button>(R.id.btnAdd) as Button
@@ -96,10 +102,10 @@ class AddBookForm : Fragment(), View.OnClickListener{
                 !checkPages() -> mensaje = "NUMBER OF PAGES NOT VALID"
                 !checkDate() -> mensaje = "DATE NOT VALID"
                 checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
-                    val book = retrieveBook(view)
-                    bookCatalog.addBook(book)
-                    textViewNumBooks.text = "${bookCatalog.books.size} books"
-                    mensaje = "ADDED BOOK"
+                    val book = retrieveBook()
+                    bookViewModel.addBook(book)
+                    //textViewNumBooks.text = "${bookCatalog.books.size} books"
+                    //mensaje = "ADDED BOOK"
                 }
             }
 
@@ -112,10 +118,19 @@ class AddBookForm : Fragment(), View.OnClickListener{
         }
     }
 
+    private fun observeAddedBook(){
+        bookViewModel.bookAddedLiveData.observe(viewLifecycleOwner, Observer{
+            book ->
+            if(book.status == Resource.Status.SUCCESS){
+                Toast.makeText(context, "Book ${book.data.title} added to backend}", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
 
 
 
-    private fun retrieveBook(view: View) : Book {
+
+    private fun retrieveBook() : Book {
 
         val title = editTextTitle.text.toString()
         val cover = editTextPortada.text.toString()
@@ -127,16 +142,15 @@ class AddBookForm : Fragment(), View.OnClickListener{
         val sNumberOfPages = seekBarPages.progress.toString()
         val sPrice = editTextPrice.text.toString()
         val description = editTextDescription.text.toString()
-        val radioButton = view.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-        val type = radioButton.text.toString()
+        //val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
+        val type = view!!.findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
 
         val iNumberOfPages = sNumberOfPages.toInt()
         val dPrice = sPrice.toDouble()
 
-        val bookInserted = Book(
+        val bookInserted = Book(1,
             title, cover, isbn, authors, editorial, binding,
-            sDate, iNumberOfPages, dPrice, description, type
-        )
+            sDate, iNumberOfPages, dPrice, description, type)
 
         return bookInserted
     }

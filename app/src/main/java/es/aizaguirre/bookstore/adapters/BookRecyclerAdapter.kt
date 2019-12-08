@@ -50,6 +50,9 @@ class BookRecyclerAdapter (var books: List<Book>, private val onLongClickListene
         itemView.setOnClickListener{
             clickListener.onClicked(book)
         }
+            itemView.setOnLongClickListener{
+                onLongClickListener.onLongClick(book)
+            }
 
         }
 
