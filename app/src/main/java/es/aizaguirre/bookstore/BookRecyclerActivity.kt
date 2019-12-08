@@ -8,16 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.aizaguirre.bookstore.adapters.BookAdapter
 import es.aizaguirre.bookstore.adapters.BookRecyclerAdapter
-import es.aizaguirre.bookstore.model.Book
-import es.aizaguirre.bookstore.model.BookMapper
-import es.aizaguirre.bookstore.model.BookViewModel
-import es.aizaguirre.bookstore.model.Catalog
+import es.aizaguirre.bookstore.model.*
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_book_list.*
+
 
 class BookRecyclerActivity : Fragment() {
 
@@ -53,6 +56,14 @@ class BookRecyclerActivity : Fragment() {
         catalog.addBook(book2)
         catalog.addBook(book3)*/
 
+        val longClickListener = object : BookRecyclerAdapter.OnLongClickListener{
+            override fun onLongClick(book: Book): Boolean {
+                booksViewModel.deleteBook(book)
+                return true
+            }
+
+        }
+
         var manejadorListener = object:BookRecyclerAdapter.OnItemClickListener{
             override fun onClicked(book: Book) {
 
@@ -70,7 +81,7 @@ class BookRecyclerActivity : Fragment() {
 
         }
 
-        var adapterRecycler = BookRecyclerAdapter(catalog.books, manejadorListener )
+        var adapterRecycler = BookRecyclerAdapter(emptyList(),longClickListener, manejadorListener )
 
 
 
@@ -78,11 +89,47 @@ class BookRecyclerActivity : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = adapterRecycler
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        observeBookList()
+        observeDeleteBook()
+        booksViewModel.getBooks()
 
+    }
 
+    private fun observeDeleteBook(){
+        booksViewModel.bookDeletedLiveData.observe(viewLifecycleOwner, Observer{
+            resource ->
+            if(resource.status == Resource.Status.SUCCESS){
 
+                Toast.makeText(context, "Book Deleted" , Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Unable to delete book" , Toast.LENGTH_LONG).show()
 
+            }
+        })
+    }
+
+    private fun observeBookList(){
+        booksViewModel.bookListLiveData.observe(viewLifecycleOwner, Observer{
+            resource ->
+            when(resource.status){
+                Resource.Status.SUCCESS ->{
+                    adapter.books = resource.data
+                    adapter.notifyDataSetChanged()
+                }
+                Resource.Status.ERROR -> {
+                    if(resource.message != null ){
+                        Toast.makeText(context, resource.message , Toast.LENGTH_LONG).show()
+                    }
+                }
+                Resource.Status.LOADING -> {
+
+                }
+            }
+        })
     }
 
 
