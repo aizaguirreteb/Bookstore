@@ -27,4 +27,32 @@ class BookViewModel : ViewModel(){
         })
     }
 
+    fun addBook(book: Book){
+        BookRepository.addBook(book, object: BookRepository.BookRepositoryCallback{
+            override fun onBookResponse(book: Book) {
+                bookAddedLiveData.value = Resource.success(book)
+                getBooks()
+            }
+
+            override fun onBookError(msg: String?) {
+                bookAddedLiveData.value = Resource.error(msg.orEmpty(), book)
+            }
+
+        })
+    }
+
+    fun deleteBook(book: Book){
+        BookRepository.deleteBook(book, object: BookRepository.BookDeleteRepositoryCallback{
+            override fun onBookResponse(msg: String?) {
+                bookDeletedLiveData.value = Resource.success(book)
+                getBooks()
+            }
+
+            override fun onBookError(msg: String?) {
+                bookDeletedLiveData.value = Resource.error(msg.orEmpty(), book)
+            }
+
+        })
+    }
+
 }
