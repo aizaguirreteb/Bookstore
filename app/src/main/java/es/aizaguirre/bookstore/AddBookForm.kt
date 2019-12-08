@@ -15,10 +15,12 @@ import es.aizaguirre.bookstore.model.Catalog
 import es.aizaguirre.bookstore.model.Resource
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
+import kotlinx.android.synthetic.main.activity_book_detail.*
 import java.util.*
 
 class AddBookForm : Fragment(), View.OnClickListener{
-
+    val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
+    lateinit var buttonInsert: Button
 
     private val bookViewModel: BookViewModel by lazy {
         ViewModelProviders.of(this).get(BookViewModel::class.java)
@@ -33,11 +35,19 @@ class AddBookForm : Fragment(), View.OnClickListener{
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var editBook : Book
+
+        if(arguments != null){
+            editBook = arguments!!.get("ITEM_PULSADO") as Book
+            setBook(editBook)
+            btnAdd.setText("UPDATE")
+
+        }
         /*val textNumBooks = view.findViewById<TextView>(R.id.textViewNumBooks)
         textNumBooks.setText("${} books")*/
 
         //Setting onclick listener to button 'Insert'
-        val buttonInsert = view.findViewById<Button>(R.id.btnAdd) as Button
+        buttonInsert = view.findViewById<Button>(R.id.btnAdd) as Button
         buttonInsert.setOnClickListener(this)
 
         //Setting listener to button clearFindViewByIdCache
@@ -45,7 +55,6 @@ class AddBookForm : Fragment(), View.OnClickListener{
         buttonClear.setOnClickListener(this)
 
         //Array of values for binding
-        val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
 
         //Array of editorial values
         val editorialArray = arrayOf("Anaya", "Mac Graw Hill", "Oreilly", "Apress", "Manning", "Pretince Hall", "Rama")
@@ -192,6 +201,34 @@ class AddBookForm : Fragment(), View.OnClickListener{
         var regexDate = "[0-9]{1,2}(-|/)[0-9]{1,2}(-|/)[0-9]{2,4}".toRegex()
 
         return editTextDate.text.matches(regexDate)
+
+    }
+
+    private fun setBook(book: Book){
+
+        editTextTitle.setText(book.title)
+        editTextISBN.setText(book.isbn)
+        editTextAuthors.setText(book.authors)
+        editTextDescription.setText(book.description)
+        editTextPrice.setText(book.price.toString())
+        editTextDate.setText(book.date)
+        editTextPortada.setText(book.cover)
+
+        spinnerEditorial.setText(book.editorial)
+        seekBarPages.progress = book.numberOfPages
+        for( i in 0 until bindingArray.size){
+            if (bindingArray[i].equals(book.binding)){
+                spinnerBinding.setSelection(i)
+            } else {
+                spinnerBinding.setSelection(0)
+            }
+        }
+        if(book.type.equals("Digital")){
+            radioButtonDigital.isChecked = true
+        } else {
+            radioButtonFisico.isChecked = true
+        }
+
 
     }
 
