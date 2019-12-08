@@ -9,17 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.aizaguirre.bookstore.adapters.BookAdapter
 import es.aizaguirre.bookstore.adapters.BookRecyclerAdapter
 import es.aizaguirre.bookstore.model.Book
+import es.aizaguirre.bookstore.model.BookMapper
+import es.aizaguirre.bookstore.model.BookViewModel
 import es.aizaguirre.bookstore.model.Catalog
 
 class BookRecyclerActivity : Fragment() {
 
     private lateinit var bookListRecycler : RecyclerView
     private lateinit var adapter : BookRecyclerAdapter
+
+    private val booksViewModel: BookViewModel by lazy {
+        ViewModelProviders.of(this).get(BookViewModel::class.java)
+    }
     val catalog : Catalog = Catalog
 
     override fun onCreateView(

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import es.aizaguirre.bookstore.R
 import es.aizaguirre.bookstore.model.Book
 
-class BookRecyclerAdapter (val books: List<Book>, val itemClickListener: OnItemClickListener) :
+class BookRecyclerAdapter (val books: List<Book>, private val onLongClickListener: View.OnLongClickListener, val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<BookRecyclerAdapter.BookViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -53,6 +53,10 @@ class BookRecyclerAdapter (val books: List<Book>, val itemClickListener: OnItemC
 
         }
 
+    }
+
+    interface OnLongClickListener{
+        fun onLongClick(book: Book): Boolean
     }
 
 
