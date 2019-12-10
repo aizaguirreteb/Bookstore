@@ -19,5 +19,5 @@ interface BookApi {
     fun deleteBook(@Path("id") id: Int): Call<Void>
 
     @PUT("books/{id}")
-    fun updateBook(@Path("id") id: Int, @Body book: BookDto): Call<Void>
+    fun updateBook(@Path("id") id: Int, @Body book: Book): Call<Void>
 }

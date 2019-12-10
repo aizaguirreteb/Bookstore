@@ -78,7 +78,23 @@ object BookRepository {
     }
 
     fun updateBook(book: Book, callback: BookUpdateRepositoryCallback){
-        
+        val call = api.updateBook(book.id, book)
+        call.enqueue(object : Callback<Void>{
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback.onBookError(t.message)
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+
+                    callback.onBookResponse(book)
+
+                } else {
+                    callback.onBookError(response.message())
+                }
+            }
+
+        })
     }
 
 

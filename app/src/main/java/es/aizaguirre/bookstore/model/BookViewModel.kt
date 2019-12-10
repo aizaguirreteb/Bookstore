@@ -9,6 +9,7 @@ class BookViewModel : ViewModel(){
     val bookListLiveData = MutableLiveData<Resource<List<Book>>>()
     val bookAddedLiveData = MutableLiveData<Resource<Book>>()
     val bookDeletedLiveData = MutableLiveData<Resource<Book>>()
+    val bookUpdatedLiveData = MutableLiveData<Resource<Book>>()
 
     fun getBooks(){
         BookRepository.getBooks(object: BookRepository.BookListRepositoryCallback {
@@ -50,6 +51,20 @@ class BookViewModel : ViewModel(){
 
             override fun onBookError(msg: String?) {
                 bookDeletedLiveData.value = Resource.error(msg.orEmpty(), book)
+            }
+
+        })
+    }
+
+    fun updateBook(book:Book){
+        BookRepository.updateBook(book, object: BookRepository.BookUpdateRepositoryCallback{
+            override fun onBookResponse(book: Book) {
+                bookUpdatedLiveData.value = Resource.success(book)
+                getBooks()
+            }
+
+            override fun onBookError(msg: String?) {
+                bookUpdatedLiveData.value = Resource.error(msg.orEmpty(), book)
             }
 
         })

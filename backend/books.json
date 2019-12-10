@@ -1,18 +1,18 @@
 {
   "books": [
     {
-      "id": 1,
-      "title": "Practical Quantum Computing for Developers",
-      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTXv0U-c4Q7ZZTlaovG-HMbZEm0xgx_amyuJL1PvkTJaRBRAb18",
-      "isbn": "1234567891234",
-      "authors": "Vladimir Silva",
+      "authors": "hagshkfbfldbslflf",
+      "binding": "Ebook",
+      "cover": "hhhhhhhh",
+      "date": "10-04-1991",
+      "description": "beautiful",
       "editorial": "Anaya",
-      "binding": "Tapa dura",
-      "date": "10-04-91",
-      "numberOfPages": 250,
-      "price": 20.55,
-      "description": "Libro sobre computación cuántica",
-      "type": "Digital"
+      "id": 1,
+      "isbn": "1234567891234",
+      "numberOfPages": 1335,
+      "price": 100,
+      "title": "prueba",
+      "type": "Physical"
     },
     {
       "id": 2,

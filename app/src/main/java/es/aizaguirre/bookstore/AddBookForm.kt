@@ -13,6 +13,7 @@ import es.aizaguirre.bookstore.model.Book
 import es.aizaguirre.bookstore.model.BookViewModel
 import es.aizaguirre.bookstore.model.Catalog
 import es.aizaguirre.bookstore.model.Resource
+import es.aizaguirre.bookstore.model.api.BookDto
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_add_book_form.*
 import kotlinx.android.synthetic.main.activity_book_detail.*
@@ -21,10 +22,13 @@ import java.util.*
 class AddBookForm : Fragment(), View.OnClickListener{
     val bindingArray = arrayOf("Ebook", "Rústica", "Tapa blanda", "Cartoné", "Grapado")
     lateinit var buttonInsert: Button
+    var idBook = -1
 
     private val bookViewModel: BookViewModel by lazy {
         ViewModelProviders.of(this).get(BookViewModel::class.java)
     }
+
+    var updating = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +45,8 @@ class AddBookForm : Fragment(), View.OnClickListener{
             editBook = arguments!!.get("ITEM_PULSADO") as Book
             setBook(editBook)
             btnAdd.setText("UPDATE")
-
+            updating = true
+            idBook = editBook.id
         }
         /*val textNumBooks = view.findViewById<TextView>(R.id.textViewNumBooks)
         textNumBooks.setText("${} books")*/
@@ -102,7 +107,7 @@ class AddBookForm : Fragment(), View.OnClickListener{
     override fun onClick(view: View?) {
         val buttonClicked = view
 
-        if(buttonClicked?.id == R.id.btnAdd){
+        if(buttonClicked?.id == R.id.btnAdd && updating == false ){
             var mensaje : String = ""
             when{
                 !checkFieldsNotEmpty() -> mensaje = "PLEASE FILL ALL FIELDS"
@@ -120,6 +125,23 @@ class AddBookForm : Fragment(), View.OnClickListener{
 
             Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show()
 
+        } else if(buttonClicked?.id == R.id.btnAdd && updating == true){
+            var mensaje : String = ""
+            when{
+                !checkFieldsNotEmpty() -> mensaje = "PLEASE FILL ALL FIELDS"
+                !checkISBNLength() -> mensaje = "ISBN NUMBER NOT VALID"
+                !checkPrice() -> mensaje = "PRICE NOT VALID"
+                !checkPages() -> mensaje = "NUMBER OF PAGES NOT VALID"
+                !checkDate() -> mensaje = "DATE NOT VALID"
+                checkFieldsNotEmpty() && checkISBNLength() && checkPrice() && checkPages()-> {
+                    val book = retrieveBook()
+                    bookViewModel.updateBook(book)
+                    //textViewNumBooks.text = "${bookCatalog.books.size} books"
+                    //mensaje = "ADDED BOOK"
+                }
+            }
+
+            Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show()
         }
 
         if(buttonClicked?.id == R.id.buttonClear){
@@ -157,9 +179,17 @@ class AddBookForm : Fragment(), View.OnClickListener{
         val iNumberOfPages = sNumberOfPages.toInt()
         val dPrice = sPrice.toDouble()
 
-        val bookInserted = Book(1,
-            title, cover, isbn, authors, editorial, binding,
-            sDate, iNumberOfPages, dPrice, description, type)
+        var bookInserted: Book
+
+        if(updating){
+            bookInserted = Book(idBook,
+                title, cover, isbn, authors, editorial, binding,
+                sDate, iNumberOfPages, dPrice, description, type)
+        } else {
+            bookInserted = Book(1,
+                title, cover, isbn, authors, editorial, binding,
+                sDate, iNumberOfPages, dPrice, description, type)
+        }
 
         return bookInserted
     }
