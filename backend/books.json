@@ -72,31 +72,73 @@
     },
     {
       "authors": "hagshkfbfldbslflf",
-      "binding": "Tapa blanda",
+      "binding": "Ebook",
       "cover": "hhhhhhhh",
       "date": "10-04-1991",
-      "description": "beautiful",
+      "description": "Si pruebo y me sale he terminado",
       "editorial": "Anaya",
+      "id": 14,
       "isbn": "1234567891234",
       "numberOfPages": 636,
       "price": 50,
-      "title": "prueba",
-      "type": "Physical",
-      "id": 14
+      "title": "SEGUNDA EDICION DE LIBRO",
+      "type": "Physical"
     },
     {
       "authors": "hagshkfbfldbslflf",
-      "binding": "Tapa blanda",
+      "binding": "Ebook",
       "cover": "hhhhhhhh",
       "date": "10-04-1991",
       "description": "beautiful",
       "editorial": "Anaya",
+      "id": 16,
       "isbn": "1234567891234",
       "numberOfPages": 636,
       "price": 50,
-      "title": "prueba",
+      "title": "Edicion de libro /Prueba",
+      "type": "Physical"
+    },
+    {
+      "authors": "Gonzalo Torrente Ballester",
+      "binding": "Ebook",
+      "cover": "Url no disponible",
+      "date": "10-12-2019",
+      "description": "Libro inedito del escritor Gonzalo Torrente Ballester. Una obra maestra digna del autor, y especialmente emotivo.",
+      "editorial": "Oreilly",
+      "id": 19,
+      "isbn": "1234567891234",
+      "numberOfPages": 145,
+      "price": 120,
+      "title": "LIBRO edit ago",
+      "type": "Physical"
+    },
+    {
+      "authors": "Gonzalo Torrente Ballester",
+      "binding": "Ebook",
+      "cover": "Url no disponible",
+      "date": "10-12-2019",
+      "description": "Libro inedito del escritor Gonzalo Torrente Ballester. Una obra maestra digna del autor, y especialmente emotivo.",
+      "editorial": "Oreilly",
+      "id": 20,
+      "isbn": "1234567891234",
+      "numberOfPages": 145,
+      "price": 120,
+      "title": "LIBRO PARA PRUEBAS 2",
+      "type": "Physical"
+    },
+    {
+      "authors": "Gonzalo Torrente Ballester",
+      "binding": "Tapa blanda",
+      "cover": "Url no disponible",
+      "date": "10-12-2019",
+      "description": "Libro inedito del escritor Gonzalo Torrente Ballester. Una obra maestra digna del autor, y especialmente emotivo.",
+      "editorial": "Oreilly",
+      "isbn": "1234567891234",
+      "numberOfPages": 145,
+      "price": 120,
+      "title": "LIBRO PARA PRUEBAS 3",
       "type": "Physical",
-      "id": 16
+      "id": 21
     }
   ]
 }

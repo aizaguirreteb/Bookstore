@@ -45,6 +45,7 @@ class AddBookForm : Fragment(), View.OnClickListener{
             editBook = arguments!!.get("ITEM_PULSADO") as Book
             setBook(editBook)
             btnAdd.setText("UPDATE")
+            textFormTitle.text = "EDIT A BOOK"
             updating = true
             idBook = editBook.id
         }
